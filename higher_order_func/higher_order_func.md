@@ -8,11 +8,20 @@
 ## The Foldr Function
 
 - a number of functions on lists can be defined using the following simple pattern of recursion
+  - ```
+    f [] = v
+    f (x : xs) = x ⊕ f xs
+    ```
   - ```haskell
     sum [] = 0
-    sum (x:xs) = x + sum xs
+    sum (x : xs) = x + sum xs
     ```
 - the higher-order library functions `foldr` (fold right) encapsulates this simple pattern of recursion, with the function `⊕` and the value `v` as arguments
+  - ```haskell
+    foldr :: (a -> b -> b) -> b -> [a] -> b
+    foldr _ v [] = v
+    foldr f v (x : xs) = f x (foldr f v xs)
+    ```
   - ```
       product [1, 2, 3]
     = foldr (*) 1 [1, 2, 3]
